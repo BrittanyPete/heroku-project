@@ -13,7 +13,7 @@ let users = [
 module.exports = {
 
 async findAll() {
-    return users;
+    return Promise.resolve(users);
 },
 
 async create({ username, password }) {
@@ -22,8 +22,9 @@ async create({ username, password }) {
     return Promise.resolve(newUser)
 },
 
-async findUser({ username }) {
-    return `Hello ${username}`
+async findUser(username) {
+    const user = users.findAll(u => u.username === username)
+    return Promise.resolve(user)
 }
 
 }
